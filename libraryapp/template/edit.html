@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Edit Book Details</title>
+{% endblock %}
+
+{% block content %}
+<div class="container w-50 mx-auto bg-primary">
+  <h2 class="text-center">Edit Book Details</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-3 mt-3">
+      <label class="form-label">Title</label>
+      <input type="text" class="form-control" name="t" value="{{ book.title }}" placeholder="Enter the title">
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label class="form-label">Author</label>
+      <input type="text" class="form-control" name="a" value="{{ book.author }}" placeholder="Enter the Author">
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label class="form-label">Language</label>
+      <input type="text" class="form-control" name="la" value="{{ book.language }}" placeholder="Enter the Language">
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label class="form-label">Price</label>
+      <input type="number" class="form-control" name="p" value="{{ book.price }}" placeholder="Enter the price">
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label class="form-label">Pages</label>
+      <input type="number" class="form-control" name="pg" value="{{ book.pages }}" placeholder="Enter the number of pages">
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label class="form-label">Image</label>
+      <div>
+        <img src="{{ book.img.url }}" alt="Current Book Image" style="max-width: 200px; max-height: 200px;">
+      </div>
+      <input type="file" class="form-control" name="img">
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label class="form-label">PDF</label>
+      <div>
+        <a href="{{ book.pdf.url }}" target="_blank" >Download PDF</a>
+      </div>
+      <input type="file" class="form-control" name="pdf">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+  </form>
+</div>
+{% endblock %}
