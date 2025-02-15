@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <!-- Product Image -->
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}" style="max-height: 400px; object-fit: contain;">
+                {% else %}
+                    <img src="/static/images/default-product.jpg" class="card-img-top img-fluid" alt="No Image Available" style="max-height: 400px; object-fit: contain;">
+                {% endif %}
+
+                <div class="card-body text-center">
+                    <h3 class="card-title">{{ product.name }}</h3>
+                    <p class="card-text text-success h4"><strong>${{ product.price }}</strong></p>
+                    <p class="text-muted">{{ product.description }}</p>
+
+
+                    <p>{{pro.stock}}</p>
+
+    {% if user.is_superuser %} <!--if user is admin -->
+
+  {% if pro.stock > 0%}
+
+ <p>Product in Stock</p>
+
+<a class="btn hvr-hover" href="{% url 'shop:add_stock' %}">Add Stock</a>
+
+{% else %}
+
+<p>Product Out of Stock</p>
+
+<a class="btn hvr-hover" href="{% url 'shop:add_stock' %}">Add Stock</a>
+
+{% endif %}
+
+{% else %} <!-- if user is normal user -->
+
+{% if pro.stock > 0%}
+
+<a class="btn hvr-hover" href="% url 'cart:addtocart' pro.id %}">Add To cart</a>
+
+{% else %}
+
+<p>Product Out of Stock</p>
+
+{% endif %}
+                    {% endif %}
+
+
+
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-outline-success">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-bolt"></i> Buy Now
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

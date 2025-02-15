@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container text-center mt-5">
+    <h2 class="text-success">Payment Successful ✅</h2>
+    <p>Thank you for your purchase, {{ request.user.username }}!</p>
+    <a href="{% url 'shop:product_list' %}" class="btn btn-primary">Continue Shopping</a>
+</div>
+{% endblock %}

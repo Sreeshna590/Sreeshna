@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<center>
+    <div class="container mt-5 p-3 bg-dark text-light">
+        <h2 class="bg-light">Complete Your Payment</h2>
+        <p>Order ID: <strong>{{ payment.id }}</strong></p>
+        <p>Amount: ₹{{ payment.amount|floatformat:2 }}</p> <!-- ✅ Display in rupees for user clarity -->
+
+        <form action="{% url 'cart:status' name %}" method="POST">
+            {% csrf_token %}
+            <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="rzp_test_9SsiNMi8rbxStO"
+                data-amount="{{ payment.amount }}" <!-- ✅ Now this is in paise -->
+                data-currency="INR"
+                data-order_id="{{ payment.id }}"
+                data-buttontext="Pay with Razorpay"
+                data-name="PillloMart"
+                data-description="Secure Payment"
+                data-image="{% static 'images/logo.png' %}"
+                data-prefill.name="{{ request.user.username }}"
+                data-prefill.email="{{ request.user.email }}"
+                data-theme.color="#F37254">
+            </script>
+            <input type="hidden" name="hidden" value="hidden_value"/>
+        </form>
+    </div>
+</center>
+
+{% endblock %}
