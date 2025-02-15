@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-    <h2>Search Results for "{{ query }}"</h2>
-    <ul>
-        {% for product in products %}
-            <li><a href="{% url 'shop:product_detail' product.slug %}">{{ product.name }}</a></li>
-        {% endfor %}
-    </ul>
-{% endblock %}
